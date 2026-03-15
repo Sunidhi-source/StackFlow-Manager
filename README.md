@@ -11,10 +11,15 @@ StackFlow Manager is a full-stack SaaS-style application designed for high-perfo
 
 ## 📸 System Overview
 
-| Dashboard Interface | User Security & Profile |
-| :---: | :---: |
-| ![Dashboard](./screenshots/dashboard-dark.png) | ![Profile](./screenshots/profile.png) |
+## 📸 Visual Overview
 
+| Light Mode Interface | Dark Mode Interface |
+| :---: | :---: |
+| ![Light Mode](./screenshots/dashboard-light.png) | ![Dark Mode](./screenshots/dashboard-dark.png) |
+
+| User Identity & Account Security |
+| :---: |
+| ![Profile Settings](./screenshots/profile.png) |
 ---
 
 ## 🧠 Architectural Techniques & Engineering Decisions
