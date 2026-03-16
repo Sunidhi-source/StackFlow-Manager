@@ -71,6 +71,7 @@ To improve UX and SEO, I implemented a **Slugification Hook** in the Mongoose mo
     EMAIL_USER= email_id
     EMAIL_PASS= your_email_pass
     JWT_SECRET= your_secure_secret
+   BASE_URL= http://localhost:5000
    ```
 
 3. **Execution**:
