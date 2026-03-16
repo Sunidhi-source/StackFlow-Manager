@@ -9,7 +9,7 @@ import nodemailer from 'nodemailer';
 import User from './models/User.js';
 import Workspace from './models/Workspace.js';
 import Project from './models/Project.js';
-import Comment from './models/Comments.js'; // Change to Comment.js if the file is singular
+import Comment from './models/Comments.js'; 
 import Task from './models/Task.js';
 
 // Controllers
