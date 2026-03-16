@@ -17,7 +17,7 @@ import WorkspaceSettings from "./pages/WSettings";
  
 const App = () => {
     const dispatch = useDispatch();
-    const base_url = import.meta.env.VITE_BASE_URL;;
+     const base_url = import.meta.env.VITE_BASE_URL;
         const user = JSON.parse(localStorage.getItem("user"));
 useEffect(() => {
     if (user) {

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
  import 'react-toastify/dist/ReactToastify.css';
 
-const base_url = import.meta.env.VITE_BASE_URL;;
+ const base_url = import.meta.env.VITE_BASE_URL;
 const InviteMemberDialog = ({ isDialogOpen, setIsDialogOpen }) => {
 
     const currentWorkspace = useSelector((state) => state.workspace?.currentWorkspace || null);

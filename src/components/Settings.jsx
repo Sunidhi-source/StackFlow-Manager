@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { User, Lock, Trash2, Save, ShieldAlert } from 'lucide-react';
 import toast from 'react-hot-toast';
- const base_url = import.meta.env.VITE_BASE_URL;;
+  const base_url = import.meta.env.VITE_BASE_URL;
 
 const Settings = () => {
     const user = JSON.parse(localStorage.getItem("user"));

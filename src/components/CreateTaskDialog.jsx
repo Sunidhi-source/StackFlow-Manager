@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import toast from "react-hot-toast";
 import { addTask } from "../features/workspaceSlice";
  
-const base_url = import.meta.env.VITE_BASE_URL;;
+ const base_url = import.meta.env.VITE_BASE_URL;
 
 export default function CreateTaskDialog({ showCreateTask, setShowCreateTask, projectId }) {
     const dispatch = useDispatch();

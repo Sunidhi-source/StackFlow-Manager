@@ -4,7 +4,7 @@ import { addWorkspace } from "../features/workspaceSlice";
 import { X, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
  
-const base_url = import.meta.env.VITE_BASE_URL;;
+ const base_url = import.meta.env.VITE_BASE_URL;
 
 
 export default function CreateWorkspaceModal({ isOpen, onClose }) {

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { CalendarIcon, MessageCircle, PenIcon } from "lucide-react";
- const base_url = import.meta.env.VITE_BASE_URL;;
+  const base_url = import.meta.env.VITE_BASE_URL;
 
 
 const TaskDetails = () => {

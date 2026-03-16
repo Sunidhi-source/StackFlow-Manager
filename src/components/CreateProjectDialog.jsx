@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addProject } from "../features/workspaceSlice"; 
 import toast from "react-hot-toast";
  
-const base_url = import.meta.env.VITE_BASE_URL;;
+ const base_url = import.meta.env.VITE_BASE_URL;
 
 const CreateProjectDialog = ({ isDialogOpen, setIsDialogOpen }) => {
     const dispatch = useDispatch(); 

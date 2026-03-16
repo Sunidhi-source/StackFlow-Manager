@@ -9,7 +9,8 @@ StackFlow Manager is a full-stack SaaS-style application designed for high-perfo
 
 ---
 
-## 📸 System Overview
+## 🚀 Live Demo
+https://stack-flow-manager.vercel.app/
 
 ## 📸 Visual Overview
 
@@ -17,9 +18,9 @@ StackFlow Manager is a full-stack SaaS-style application designed for high-perfo
 | :---: | :---: |
 | ![Light Mode](./screenshots/dashboard-light.png) | ![Dark Mode](./screenshots/dashboard-dark.png) |
 
-| User Identity & Account Security |
-| :---: |
-| ![Profile Settings](./screenshots/profile.png) |
+| User Identity & Account Security | Project Management Deep-Dive |
+| :---: | :---: |
+| ![Profile Settings](./screenshots/profile.png) | ![Project Details](./screenshots/projectdetails.png) |
 ---
 
 ## 🧠 Architectural Techniques & Engineering Decisions

@@ -8,7 +8,7 @@ export default function WorkspaceSettings() {
     const dispatch = useDispatch();
     const workspace = useSelector(state => state.workspace.currentWorkspace);
     const [name, setName] = useState(workspace?.name || "");
-    const base_url = import.meta.env.VITE_BASE_URL;;
+     const base_url = import.meta.env.VITE_BASE_URL;
 
     const handleSaveBranding = async () => {
         const res = await fetch(`${base_url}/api/workspaces/${workspace._id}`, {

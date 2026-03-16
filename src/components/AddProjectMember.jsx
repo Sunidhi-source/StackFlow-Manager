@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import { updateTask } from '../features/workspaceSlice'; 
 import toast from "react-hot-toast";
  
-const base_url = import.meta.env.VITE_BASE_URL;;
+ const base_url = import.meta.env.VITE_BASE_URL;
 
 const AddProjectMember = ({ isDialogOpen, setIsDialogOpen }) => {
   const dispatch = useDispatch();
