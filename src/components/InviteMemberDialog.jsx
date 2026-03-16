@@ -3,6 +3,7 @@ import { Mail, UserPlus } from "lucide-react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 require('dotenv').config();
+import 'react-toastify/dist/ReactToastify.css';
 
 const base_url = process.env.BASE_URL;
 const InviteMemberDialog = ({ isDialogOpen, setIsDialogOpen }) => {
