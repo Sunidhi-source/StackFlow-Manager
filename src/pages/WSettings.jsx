@@ -3,13 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { Trash2, Shield, User, Save } from "lucide-react";
 import toast from "react-hot-toast";
 import { updateWorkspace, deleteWorkspace } from "../features/workspaceSlice";
-require('dotenv').config();
-
+ 
 export default function WorkspaceSettings() {
     const dispatch = useDispatch();
     const workspace = useSelector(state => state.workspace.currentWorkspace);
     const [name, setName] = useState(workspace?.name || "");
-    const base_url = process.env.BASE_URL;
+    const base_url = import.meta.env.VITE_BASE_URL;;
 
     const handleSaveBranding = async () => {
         const res = await fetch(`${base_url}/api/workspaces/${workspace._id}`, {

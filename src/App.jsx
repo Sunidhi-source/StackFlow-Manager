@@ -14,11 +14,10 @@ import Settings from "./components/Settings";
 import { setWorkspaces, setCurrentWorkspace } from "./features/workspaceSlice";
 import JoinWorkspace from "./components/JoinWorkspace";
 import WorkspaceSettings from "./pages/WSettings";
-require('dotenv').config();
-
+ 
 const App = () => {
     const dispatch = useDispatch();
-    const base_url = process.env.BASE_URL;
+    const base_url = import.meta.env.VITE_BASE_URL;;
         const user = JSON.parse(localStorage.getItem("user"));
 useEffect(() => {
     if (user) {

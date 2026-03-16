@@ -2,8 +2,7 @@ import { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
-require('dotenv').config();
-const base_url = process.env.BASE_URL;
+ const base_url = import.meta.env.VITE_BASE_URL;;
 
 export default function JoinWorkspace() {
     const [searchParams] = useSearchParams();

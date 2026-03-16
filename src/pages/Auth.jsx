@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Lock, User, ArrowRight, ShieldCheck } from 'lucide-react'; 
 import { useNavigate } from 'react-router-dom';
-require('dotenv').config();
-const base_url = process.env.BASE_URL;
+ const base_url = import.meta.env.VITE_BASE_URL;;
 
 const Auth = () => {
     const [isLogin, setIsLogin] = useState(true);

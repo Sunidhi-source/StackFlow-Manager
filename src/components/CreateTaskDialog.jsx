@@ -4,9 +4,8 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
 import { addTask } from "../features/workspaceSlice";
-require('dotenv').config();
-
-const base_url = process.env.BASE_URL;
+ 
+const base_url = import.meta.env.VITE_BASE_URL;;
 
 export default function CreateTaskDialog({ showCreateTask, setShowCreateTask, projectId }) {
     const dispatch = useDispatch();

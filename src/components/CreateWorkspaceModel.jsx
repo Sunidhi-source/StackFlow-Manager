@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addWorkspace } from "../features/workspaceSlice";
 import { X, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
-require('dotenv').config();
-
-const base_url = process.env.BASE_URL;
+ 
+const base_url = import.meta.env.VITE_BASE_URL;;
 
 
 export default function CreateWorkspaceModal({ isOpen, onClose }) {

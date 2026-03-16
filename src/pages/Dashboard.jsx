@@ -8,8 +8,7 @@ import ProjectOverview from "../components/ProjectOverview";
 import RecentActivity from "../components/RecentActivity";
 import TasksSummary from "../components/TasksSummary";
 import CreateProjectDialog from "../components/CreateProjectDialog";
-require('dotenv').config();
-const base_url = process.env.BASE_URL;
+ const base_url = import.meta.env.VITE_BASE_URL;;
 
 
 const Dashboard = () => {

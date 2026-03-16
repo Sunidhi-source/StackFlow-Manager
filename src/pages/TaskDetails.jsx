@@ -4,8 +4,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { CalendarIcon, MessageCircle, PenIcon } from "lucide-react";
-require('dotenv').config();
-const base_url = process.env.BASE_URL;
+ const base_url = import.meta.env.VITE_BASE_URL;;
 
 
 const TaskDetails = () => {

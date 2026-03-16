@@ -6,8 +6,7 @@ import { useNavigate } from "react-router-dom";
 import AddProjectMember from "./AddProjectMember";
 import { deleteProjectFromState } from "../features/workspaceSlice"; 
 import toast from "react-hot-toast";
-require('dotenv').config();
-const base_url = process.env.BASE_URL;
+ const base_url = import.meta.env.VITE_BASE_URL;;
 
 export default function ProjectSettings({ project }) {
     const dispatch = useDispatch();
