@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Mail, Lock, User, ArrowRight, ShieldCheck } from 'lucide-react'; 
 import { useNavigate } from 'react-router-dom';
+require('dotenv').config();
+const base_url = process.env.BASE_URL;
 
 const Auth = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -21,7 +23,7 @@ const Auth = () => {
         const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
         
         try {
-            const response = await fetch(`http://localhost:5000${endpoint}`, {
+            const response = await fetch(`${base_url}${endpoint}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)

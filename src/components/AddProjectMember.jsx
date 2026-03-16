@@ -4,6 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { updateTask } from '../features/workspaceSlice'; 
 import toast from "react-hot-toast";
+require('dotenv').config();
+
+const base_url = process.env.BASE_URL;
 
 const AddProjectMember = ({ isDialogOpen, setIsDialogOpen }) => {
   const dispatch = useDispatch();
@@ -42,7 +45,7 @@ const AddProjectMember = ({ isDialogOpen, setIsDialogOpen }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/projects/${project._id}/add-member`,
+        `${base_url}/api/projects/${project._id}/add-member`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -53,7 +56,7 @@ const AddProjectMember = ({ isDialogOpen, setIsDialogOpen }) => {
       const data = await response.json();
 
       if (response.ok) {
-        dispatch(updateProject(data)); 
+        dispatch(updateTask(data)); 
         toast.success("Member added successfully!");
         setIsDialogOpen(false);
         setEmail("");

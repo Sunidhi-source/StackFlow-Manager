@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { addWorkspace } from "../features/workspaceSlice";
 import { X, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
+require('dotenv').config();
+
+const base_url = process.env.BASE_URL;
+
 
 export default function CreateWorkspaceModal({ isOpen, onClose }) {
     const [name, setName] = useState("");
@@ -31,7 +35,7 @@ export default function CreateWorkspaceModal({ isOpen, onClose }) {
 
         setLoading(true);
         try {
-            const response = await fetch("http://localhost:5000/api/workspaces", {
+            const response = await fetch(`${base_url}/api/workspaces`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 

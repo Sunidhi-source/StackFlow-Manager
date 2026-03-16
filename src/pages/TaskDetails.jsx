@@ -4,6 +4,9 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { CalendarIcon, MessageCircle, PenIcon } from "lucide-react";
+require('dotenv').config();
+const base_url = process.env.BASE_URL;
+
 
 const TaskDetails = () => {
     const [searchParams] = useSearchParams();
@@ -21,7 +24,7 @@ const TaskDetails = () => {
 
     const fetchComments = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/tasks/${taskId}/comments`);
+            const response = await fetch(`${base_url}/api/tasks/${taskId}/comments`);
             if (response.ok) {
                 const data = await response.json();
                 setComments(data);
@@ -51,7 +54,7 @@ const TaskDetails = () => {
 
         try {
             toast.loading("Posting...");
-            const response = await fetch(`http://localhost:5000/api/tasks/${taskId}/comments`, {
+            const response = await fetch(`${base_url}/api/tasks/${taskId}/comments`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 

@@ -2,15 +2,17 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Trash2, Shield, User, Save } from "lucide-react";
 import toast from "react-hot-toast";
-import { updateWorkspace, deleteWorkspace } from "../features/workspaceSlice"; //
+import { updateWorkspace, deleteWorkspace } from "../features/workspaceSlice";
+require('dotenv').config();
 
 export default function WorkspaceSettings() {
     const dispatch = useDispatch();
     const workspace = useSelector(state => state.workspace.currentWorkspace);
     const [name, setName] = useState(workspace?.name || "");
+    const base_url = process.env.BASE_URL;
 
     const handleSaveBranding = async () => {
-        const res = await fetch(`http://localhost:5000/api/workspaces/${workspace._id}`, {
+        const res = await fetch(`${base_url}/api/workspaces/${workspace._id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name })
@@ -25,7 +27,7 @@ export default function WorkspaceSettings() {
     const handleDeleteWorkspace = async () => {
         const confirm = window.prompt(`Type "DELETE ${workspace.name}" to confirm`);
         if (confirm === `DELETE ${workspace.name}`) {
-            await fetch(`http://localhost:5000/api/workspaces/${workspace._id}`, { method: "DELETE" });
+            await fetch(`${base_url}/api/workspaces/${workspace._id}`, { method: "DELETE" });
             dispatch(deleteWorkspace(workspace._id));
             window.location.href = "/dashboard";
         }

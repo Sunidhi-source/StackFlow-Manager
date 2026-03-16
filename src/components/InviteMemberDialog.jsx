@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Mail, UserPlus } from "lucide-react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+require('dotenv').config();
 
+const base_url = process.env.BASE_URL;
 const InviteMemberDialog = ({ isDialogOpen, setIsDialogOpen }) => {
 
     const currentWorkspace = useSelector((state) => state.workspace?.currentWorkspace || null);
@@ -17,7 +20,7 @@ const InviteMemberDialog = ({ isDialogOpen, setIsDialogOpen }) => {
 
     setIsSubmitting(true);
     try {
-        const response = await fetch('http://localhost:5000/api/workspaces/invite', {
+        const response = await fetch(`${base_url}/api/workspaces/invite`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

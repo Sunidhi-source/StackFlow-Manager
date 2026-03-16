@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
-import { addTask } from "../features/workspaceSlice"; 
+import { addTask } from "../features/workspaceSlice";
+require('dotenv').config();
+
+const base_url = process.env.BASE_URL;
 
 export default function CreateTaskDialog({ showCreateTask, setShowCreateTask, projectId }) {
     const dispatch = useDispatch();
@@ -31,7 +34,7 @@ export default function CreateTaskDialog({ showCreateTask, setShowCreateTask, pr
 
         setIsSubmitting(true);
         try {
-            const response = await fetch(`http://localhost:5000/api/tasks`, {
+            const response = await fetch(`${base_url}/api/tasks`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

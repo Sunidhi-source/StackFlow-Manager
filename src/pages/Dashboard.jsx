@@ -8,6 +8,9 @@ import ProjectOverview from "../components/ProjectOverview";
 import RecentActivity from "../components/RecentActivity";
 import TasksSummary from "../components/TasksSummary";
 import CreateProjectDialog from "../components/CreateProjectDialog";
+require('dotenv').config();
+const base_url = process.env.BASE_URL;
+
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -23,7 +26,7 @@ const Dashboard = () => {
         if (!user?._id) return;
 
         const res = await fetch(
-          `http://localhost:5000/api/workspaces/owner/${user._id}`
+          `${base_url}/api/workspaces/owner/${user._id}`
         );
 
         const data = await res.json();

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { User, Lock, Trash2, Save, ShieldAlert } from 'lucide-react';
 import toast from 'react-hot-toast';
+require('dotenv').config();
+const base_url = process.env.BASE_URL;
 
 const Settings = () => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -15,7 +17,7 @@ const Settings = () => {
     const handleUpdateProfile = async (e) => {
         e.preventDefault(); // Prevents page reload
         try {
-            const res = await fetch('http://localhost:5000/api/users/update', {
+            const res = await fetch(`${base_url}/api/users/update`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
@@ -42,7 +44,7 @@ const Settings = () => {
         if (!formData.newPassword) return toast.error("Enter a new password");
         
         try {
-            const res = await fetch('http://localhost:5000/api/auth/update-password', {
+            const res = await fetch(`${base_url}/api/auth/update-password`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
@@ -66,7 +68,7 @@ const Settings = () => {
     const handleDeleteAccount = async () => {
         if (window.confirm("WARNING: This will permanently delete your account and all data.")) {
             try {
-                const res = await fetch(`http://localhost:5000/api/users/${user.id || user._id}`, { 
+                const res = await fetch(`${base_url}/api/users/${user.id || user._id}`, { 
                     method: 'DELETE' 
                 });
                 if (res.ok) {

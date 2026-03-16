@@ -3,6 +3,9 @@ import { XIcon } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux"; 
 import { addProject } from "../features/workspaceSlice"; 
 import toast from "react-hot-toast";
+require('dotenv').config();
+
+const base_url = process.env.BASE_URL;
 
 const CreateProjectDialog = ({ isDialogOpen, setIsDialogOpen }) => {
     const dispatch = useDispatch(); 
@@ -31,7 +34,7 @@ const CreateProjectDialog = ({ isDialogOpen, setIsDialogOpen }) => {
 
         setIsSubmitting(true);
         try {
-            const response = await fetch("http://localhost:5000/api/projects", {
+            const response = await fetch(`${base_url}/api/projects`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 

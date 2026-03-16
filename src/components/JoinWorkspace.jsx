@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
+require('dotenv').config();
+const base_url = process.env.BASE_URL;
 
 export default function JoinWorkspace() {
     const [searchParams] = useSearchParams();
@@ -19,7 +21,7 @@ export default function JoinWorkspace() {
                 return;
             }
 
-            const response = await fetch("http://localhost:5000/api/workspaces/join", {
+            const response = await fetch(`${base_url}/api/workspaces/join`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ workspaceId, role, userId: user._id }),

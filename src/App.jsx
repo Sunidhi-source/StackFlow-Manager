@@ -14,16 +14,17 @@ import Settings from "./components/Settings";
 import { setWorkspaces, setCurrentWorkspace } from "./features/workspaceSlice";
 import JoinWorkspace from "./components/JoinWorkspace";
 import WorkspaceSettings from "./pages/WSettings";
+require('dotenv').config();
 
 const App = () => {
     const dispatch = useDispatch();
-    
+    const base_url = process.env.BASE_URL;
         const user = JSON.parse(localStorage.getItem("user"));
 useEffect(() => {
     if (user) {
         const fetchOwnedWorkspaces = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/workspaces/owner/${user.id || user._id}`);
+                const response = await fetch(`${base_url}/api/workspaces/owner/${user.id || user._id}`);
                 const data = await response.json();
                 
                 dispatch(setWorkspaces(data));

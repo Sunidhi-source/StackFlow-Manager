@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import AddProjectMember from "./AddProjectMember";
 import { deleteProjectFromState } from "../features/workspaceSlice"; 
 import toast from "react-hot-toast";
+require('dotenv').config();
+const base_url = process.env.BASE_URL;
 
 export default function ProjectSettings({ project }) {
     const dispatch = useDispatch();
@@ -43,7 +45,7 @@ export default function ProjectSettings({ project }) {
         e.preventDefault();
         setIsSubmitting(true);
         try {
-            const response = await fetch(`http://localhost:5000/api/projects/${project._id}`, {
+            const response = await fetch(`${base_url}/api/projects/${project._id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
@@ -68,7 +70,7 @@ export default function ProjectSettings({ project }) {
         if (confirmName === project.name) {
             setIsDeleting(true);
             try {
-                const response = await fetch(`http://localhost:5000/api/projects/${project._id}`, {
+                const response = await fetch(`${base_url}/api/projects/${project._id}`, {
                     method: "DELETE",
                 });
 
