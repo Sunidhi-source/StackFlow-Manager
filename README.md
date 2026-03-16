@@ -60,7 +60,7 @@ To improve UX and SEO, I implemented a **Slugification Hook** in the Mongoose mo
 ### Quick Start
 1. **Clone & Install**:
    ```bash
-   git clone [https://github.com/YOUR_USERNAME/StackFlow-Manager.git](https://github.com/YOUR_USERNAME/StackFlow-Manager.git)
+   git clone https://github.com/Sunidhi-source/StackFlow-Manager.git
    npm install
    ```
 2. **Environmental Variables**:
