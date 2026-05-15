@@ -1,40 +1,35 @@
-import { Plus } from "lucide-react";
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setWorkspaces } from "../features/workspaceSlice";
-
-import StatsGrid from "../components/StatsGrid";
-import ProjectOverview from "../components/ProjectOverview";
-import RecentActivity from "../components/RecentActivity";
-import TasksSummary from "../components/TasksSummary";
-import CreateProjectDialog from "../components/CreateProjectDialog";
-  const base_url = import.meta.env.VITE_BASE_URL;
-
+import { Plus } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setWorkspaces } from '../features/workspaceSlice';
+import StatsGrid from '../components/StatsGrid';
+import ProjectOverview from '../components/ProjectOverview';
+import RecentActivity from '../components/RecentActivity';
+import TasksSummary from '../components/TasksSummary';
+import CreateProjectDialog from '../components/CreateProjectDialog';
+import { StatsGridSkeleton } from '../components/SkeletonLoader';
+import RealtimeIndicator from '../components/RealtimeIndicator';
+import api from '../utils/api';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-
-  const userData = localStorage.getItem("user");
-  const user = userData ? JSON.parse(userData) : null;
-
+  const user = useSelector((state) => state.auth.user);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!user?._id && !user?.id) return;
+    const userId = user._id || user.id;
+
     const fetchWorkspaces = async () => {
       try {
-        if (!user?._id) return;
-
-        const res = await fetch(
-          `${base_url}/api/workspaces/owner/${user._id}`
-        );
-
-        const data = await res.json();
-
-        console.log("Workspace API Response:", data);
-
-        dispatch(setWorkspaces(data));
+        setLoading(true);
+        const data = await api.get(`/api/workspaces/owner/${userId}`);
+        dispatch(setWorkspaces(Array.isArray(data) ? data : []));
       } catch (err) {
-        console.error("Workspace fetch error:", err);
+        console.error('Workspace fetch error:', err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -46,11 +41,14 @@ const Dashboard = () => {
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
         <div>
           <h1 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white mb-1">
-            Welcome back, {user?.name || "User"}
+            Welcome back, {user?.name || 'User'}
           </h1>
-          <p className="text-gray-500 dark:text-zinc-400 text-sm">
-            Here's what's happening with your projects today
-          </p>
+          <div className="flex items-center gap-3">
+            <p className="text-gray-500 dark:text-zinc-400 text-sm">
+              Here&apos;s what&apos;s happening with your projects today
+            </p>
+            <RealtimeIndicator />
+          </div>
         </div>
 
         <button
@@ -61,13 +59,10 @@ const Dashboard = () => {
           New Project
         </button>
 
-        <CreateProjectDialog
-          isDialogOpen={isDialogOpen}
-          setIsDialogOpen={setIsDialogOpen}
-        />
+        <CreateProjectDialog isDialogOpen={isDialogOpen} setIsDialogOpen={setIsDialogOpen} />
       </div>
 
-      <StatsGrid />
+      {loading ? <StatsGridSkeleton /> : <StatsGrid />}
 
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
