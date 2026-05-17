@@ -1,146 +1,215 @@
-# 🚀 StackFlow Manager v2
+<div align="center">
 
-**Enterprise-Grade Workspace & Project Management Platform**
+# StackFlow Manager
 
-![MERN](https://img.shields.io/badge/Stack-MERN-blue)
-![Redux](https://img.shields.io/badge/State-Redux--Toolkit-764ABC?logo=redux)
-![Socket.io](https://img.shields.io/badge/Realtime-Socket.io-black?logo=socket.io)
-![Tests](https://img.shields.io/badge/Tests-Vitest-green)
-![Security](https://img.shields.io/badge/Auth-JWT-orange)
+**Enterprise-grade workspace & project management — built for real teams.**
 
-StackFlow Manager is a full-stack SaaS-style project management platform built for high-performance team collaboration. Features real-time synchronization via WebSockets, JWT-authenticated API routes, Role-Based Access Control, and a fully tested Redux state layer.
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-stack--flow--manager.vercel.app-4F46E5?style=for-the-badge)](https://stack-flow-manager.vercel.app/)
 
----
+![React](https://img.shields.io/badge/React_19-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white)
+![Redux](https://img.shields.io/badge/Redux_Toolkit-764ABC?style=flat-square&logo=redux&logoColor=white)
+![Socket.io](https://img.shields.io/badge/Socket.io-010101?style=flat-square&logo=socket.io&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=flat-square&logo=vitest&logoColor=white)
 
-## 🚀 Live Demo
-
-https://stack-flow-manager.vercel.app/
-
----
-
-### ✅ Real-Time Collaboration (Socket.io)
-
-- WebSocket server integrated via `socket.io` on the Express HTTP server
-- Workspace-scoped and project-scoped Socket rooms (`workspace:<id>`, `project:<id>`)
-- Live events for task creation, updates, deletions and project changes
-- Frontend `SocketContext` with automatic room joining and Redux dispatch on events
-- Live connection indicator shown in Dashboard and Project Detail headers
-
-### ✅ JWT Authentication
-
-- All protected API routes now require `Authorization: Bearer <token>` headers
-- Tokens issued on login/register with 7-day expiry
-- Centralized `api.js` utility auto-injects auth headers on every request
-- `authenticate` middleware guards all write operations
-
-### ✅ Role-Based Access Control (RBAC)
-
-- `requireWorkspaceAdmin` middleware blocks destructive workspace operations for non-admins
-- Server-side role verification before DELETE/PUT on workspaces
-- Prevents ID-traversal attacks on workspace membership
-
-### ✅ Test Suite (Vitest)
-
-- `workspaceSlice.test.js` — 6 reducer unit tests covering all CRUD operations
-- `authSlice.test.js` — 5 reducer unit tests covering login/logout/update flows
-- `api.test.js` — 3 integration tests for auth header injection and HTTP methods
-- Run with `npm test`
-
-### ✅ Polish & Bug Fixes
-
-- Loading skeleton components (`StatsGridSkeleton`, `ProjectCardSkeleton`, `TaskRowSkeleton`)
-- Fixed missing `next()` call in User model pre-save hook
-- Fixed invite link hardcoded to `localhost:5173` → now uses `CLIENT_URL` env variable
-- Fixed task status updates using simulated timeouts → now real `PUT /api/tasks/:id` calls
-- Fixed task delete using wrong id field (`id` vs `_id`)
-- Strengthened Project model with proper enums, indexes, and workspace reference
-- CORS now uses explicit `CLIENT_URL` env instead of wildcard `*`
+</div>
 
 ---
 
-## 🛠️ Tech Stack
+## Overview
 
-| Layer         | Technologies                                               |
-| ------------- | ---------------------------------------------------------- |
-| **Frontend**  | React 19, Vite, Tailwind CSS, Redux Toolkit, Framer Motion |
-| **Backend**   | Node.js, Express.js, Socket.io                             |
-| **Database**  | MongoDB (Mongoose ODM)                                     |
-| **Auth**      | JWT (jsonwebtoken), BCrypt.js                              |
-| **Real-time** | Socket.io (WebSockets)                                     |
-| **Testing**   | Vitest, Testing Library                                    |
-| **Email**     | Nodemailer                                                 |
+StackFlow Manager is a full-stack SaaS-style project management platform that lets teams create workspaces, manage projects, assign tasks, and collaborate — all in real time. It features WebSocket-powered live updates, JWT authentication, Role-Based Access Control, a full test suite, and a polished dual-theme UI.
 
 ---
 
-## 🧠 Architecture Highlights
+## Screenshots
 
-### 1. Real-Time WebSocket Layer
-
-Socket.io server runs on the same HTTP server as Express. Events are scoped to workspace/project rooms so clients only receive relevant updates. Frontend `SocketContext` dispatches received events directly into Redux store.
-
-### 2. Optimistic UI + Server Sync
-
-Redux Toolkit with Immer handles instant UI updates. The server confirms changes and Socket.io broadcasts to all connected clients, ensuring eventual consistency across tabs/users.
-
-### 3. Reference-Based NoSQL Schema
-
-MongoDB uses ObjectID references: Workspaces → Projects → Tasks → Assignees. Dual-reference on Tasks (projectId + assignee) enables efficient queries without denormalization.
-
-### 4. JWT + RBAC Middleware Chain
-
-Every protected route passes through `authenticate` (validates JWT) → optionally `requireWorkspaceAdmin` (checks member role). Prevents unauthorized access at the route level.
-
-### 5. Slug-Based Workspace URLs
-
-Mongoose pre-validate hook converts workspace names to clean URL slugs (`Team Alpha!` → `team-alpha`), enabling SEO-friendly and human-readable routing.
+<table>
+  <tr>
+    <td align="center"><b>Dashboard — Dark Mode</b></td>
+    <td align="center"><b>Dashboard — Light Mode</b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/dashboard-dark.png" alt="Dashboard Dark Mode" width="100%"/></td>
+    <td><img src="screenshots/dashboard-light.png" alt="Dashboard Light Mode" width="100%"/></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Project Details & Task Board</b></td>
+    <td align="center"><b>Profile & Account Settings</b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/projectdetails.png" alt="Project Details" width="100%"/></td>
+    <td><img src="screenshots/profile.png" alt="Profile Page" width="100%"/></td>
+  </tr>
+</table>
 
 ---
 
-## ⚙️ Setup
+## Features
+
+### ⚡ Real-Time Collaboration
+
+Live WebSocket synchronization powered by Socket.io. Events are scoped to workspace and project rooms so clients only receive updates relevant to them. A live connection indicator is shown in the Dashboard and Project Detail headers.
+
+### 🔐 JWT Authentication
+
+All protected routes require a `Bearer` token. Tokens are issued on login/register with a 7-day expiry. A centralized `api.js` utility auto-injects auth headers on every request — no repetitive boilerplate.
+
+### 🛡️ Role-Based Access Control (RBAC)
+
+`requireWorkspaceAdmin` middleware blocks destructive workspace operations for non-admins. All write operations are verified server-side, preventing ID-traversal and unauthorized access.
+
+### 📋 Project & Task Management
+
+Create workspaces, spin up projects, and break work into tasks with status, type, priority, assignees, due dates, and comments. Filter tasks by any combination of these attributes from the project detail view.
+
+### 📅 Calendar & Analytics Views
+
+Each project ships with a calendar view for deadline visibility and an analytics view with charts (Recharts) for progress tracking.
+
+### 🎨 Dual-Theme UI
+
+A fully polished light/dark mode with smooth transitions via Framer Motion and Tailwind CSS. Theme preference is persisted via Redux.
+
+### 📧 Email Invites
+
+Workspace admins can invite members via email (Nodemailer + Gmail). Invite links are generated with a configurable `CLIENT_URL` for deployment flexibility.
+
+### 🧪 Test Suite
+
+14 unit and integration tests written with Vitest covering Redux reducers and the API utility layer.
+
+---
+
+## Tech Stack
+
+| Layer        | Technologies                                                            |
+| ------------ | ----------------------------------------------------------------------- |
+| **Frontend** | React 19, Vite, Tailwind CSS v4, Redux Toolkit, Framer Motion, Recharts |
+| **Backend**  | Node.js, Express 5, Socket.io                                           |
+| **Database** | MongoDB (Mongoose ODM)                                                  |
+| **Auth**     | JWT (jsonwebtoken), BCrypt.js                                           |
+| **Email**    | Nodemailer                                                              |
+| **Testing**  | Vitest, Testing Library                                                 |
+
+---
+
+## Architecture
+
+**Real-Time Layer** — Socket.io runs on the same HTTP server as Express. The `SocketContext` on the frontend automatically joins workspace/project rooms and dispatches incoming events directly into the Redux store.
+
+**Optimistic UI** — Redux Toolkit with Immer handles instant UI updates. The server confirms changes and Socket.io broadcasts to all connected clients, ensuring consistency across tabs and users.
+
+**NoSQL Schema** — MongoDB uses ObjectID references: `Workspaces → Projects → Tasks → Assignees`. Dual-reference on Tasks (`projectId` + `assignee`) enables efficient queries without denormalization.
+
+**Middleware Chain** — Every protected route passes through `authenticate` (validates JWT) → optionally `requireWorkspaceAdmin` (checks member role). Clean and composable.
+
+**Slug-Based URLs** — A Mongoose pre-validate hook converts workspace names into clean slugs (`Team Alpha!` → `team-alpha`) for SEO-friendly, human-readable routing.
+
+---
+
+## Getting Started
 
 ### Prerequisites
 
 - Node.js v18+
-- MongoDB Atlas Account
+- MongoDB Atlas account (or local MongoDB)
 
-### Quick Start
+### 1. Clone & Install
 
 ```bash
 git clone https://github.com/Sunidhi-source/StackFlow-Manager.git
+cd StackFlow-Manager
 npm install
 ```
 
-### Environment Variables
+### 2. Configure Environment
 
-Copy `.env.example` to `.env` and fill in your values:
-
-```bash
-cp .env.example .env
-```
+Create a `.env` file in the root directory:
 
 ```env
 PORT=5000
-MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret_min_32_chars
-EMAIL_USER=your_gmail
-EMAIL_PASS=your_app_password
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret_minimum_32_characters
+EMAIL_USER=your_gmail_address
+EMAIL_PASS=your_gmail_app_password
 CLIENT_URL=http://localhost:5173
 VITE_BASE_URL=http://localhost:5000
 ```
 
-### Run
+> **Gmail App Password:** Go to Google Account → Security → 2-Step Verification → App Passwords to generate one.
+
+### 3. Run
 
 ```bash
-# Start backend
+# Terminal 1 — Backend
 node server.js
 
-# Start frontend (new terminal)
+# Terminal 2 — Frontend
 npm run dev
+```
 
-# Run tests
-npm test
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+### 4. Run Tests
+
+```bash
+npm test          # Run once
+npm run test:watch  # Watch mode
 ```
 
 ---
 
-👤 **Lead Developer:** Sunidhi Sharma
+## Project Structure
+
+```
+StackFlow-Manager/
+├── controllers/          # Express route controllers
+│   └── workspaceController.js
+├── models/               # Mongoose schemas
+│   ├── User.js
+│   ├── Workspace.js
+│   ├── Project.js
+│   ├── Task.js
+│   └── Comments.js
+├── server.js             # Express + Socket.io server
+├── src/
+│   ├── app/              # Redux store
+│   ├── components/       # Reusable UI components
+│   ├── context/          # SocketContext
+│   ├── features/         # Redux slices (auth, workspace, theme)
+│   ├── pages/            # Route-level page components
+│   └── App.jsx
+├── screenshots/          # UI screenshots
+└── package.json
+```
+
+---
+
+## Deployment
+
+The app is deployed with the frontend on **Vercel** and the backend on a Node-compatible host.
+
+Set all environment variables in your hosting provider's dashboard. Make sure `CLIENT_URL` points to your Vercel domain and `VITE_BASE_URL` points to your backend URL before building.
+
+```bash
+npm run build   # Produces /dist for frontend deployment
+```
+
+---
+
+## Author
+
+**Sunidhi Sharma** — Full-Stack Developer
+
+[![GitHub](https://img.shields.io/badge/GitHub-Sunidhi--source-181717?style=flat-square&logo=github)](https://github.com/Sunidhi-source)
+
+---
+
+<div align="center">
+  <sub>Built with React, Node.js, MongoDB, and Socket.io</sub>
+</div>
