@@ -12,11 +12,11 @@ const workspaceSchema = new mongoose.Schema({
   projects: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Project' }],
 }, { timestamps: true });
 
-workspaceSchema.pre('validate', function (next) {
+// async style — works correctly with mongoose v9
+workspaceSchema.pre('validate', async function () {
   if (this.name && !this.slug) {
     this.slug = this.name.toLowerCase().trim().replace(/[^\w ]+/g, '').replace(/ +/g, '-') + '-' + Date.now();
   }
-  next();
 });
 
 export default mongoose.model('Workspace', workspaceSchema);

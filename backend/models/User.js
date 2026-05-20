@@ -10,11 +10,11 @@ const userSchema = new mongoose.Schema({
 
 userSchema.virtual('id').get(function () { return this._id.toHexString(); });
 
-userSchema.pre('save', function (next) {
+// async style — works correctly with mongoose v9
+userSchema.pre('save', async function () {
   if (this.isModified('name') || this.isNew) {
     this.image = `https://ui-avatars.com/api/?name=${encodeURIComponent(this.name)}&background=random&color=fff&size=128`;
   }
-  next();
 });
 
 export default mongoose.model('User', userSchema);
