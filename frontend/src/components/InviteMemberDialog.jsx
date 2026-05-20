@@ -2,8 +2,8 @@ import api from "../utils/api";
 import { useState } from "react";
 import { Mail, UserPlus } from "lucide-react";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
- import 'react-toastify/dist/ReactToastify.css';
+import toast from "react-hot-toast";
+ 
 const InviteMemberDialog = ({ isDialogOpen, setIsDialogOpen }) => {
 
     const currentWorkspace = useSelector((state) => state.workspace?.currentWorkspace || null);
