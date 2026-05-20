@@ -5,8 +5,6 @@ import toast from "react-hot-toast";
 import { updateWorkspace, deleteWorkspace } from "../features/workspaceSlice";
 import api from "../utils/api";
 
-const base_url = import.meta.env.VITE_BASE_URL;
-
 export default function WorkspaceSettings() {
     const dispatch = useDispatch();
     const workspace = useSelector((state) => state.workspace.currentWorkspace);
@@ -62,27 +60,15 @@ export default function WorkspaceSettings() {
         if (!inviteEmail.trim()) return;
         setInviting(true);
         try {
-            const res = await fetch(`${base_url}/api/workspaces/invite`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-                body: JSON.stringify({
-                    email: inviteEmail,
-                    role: inviteRole,
-                    workspaceId: workspace._id,
-                    workspaceName: workspace.name,
-                }),
+            const data = await api.post("/api/workspaces/invite", {
+                email: inviteEmail,
+                role: inviteRole,
+                workspaceId: workspace._id,
+                workspaceName: workspace.name,
             });
-            const data = await res.json();
-            if (res.ok) {
-                toast.success(`Invite sent to ${inviteEmail}`);
-                setInviteEmail("");
-                setShowInvite(false);
-            } else {
-                toast.error(data.message || "Failed to send invite");
-            }
+            toast.success(`Invite sent to ${inviteEmail}`);
+            setInviteEmail("");
+            setShowInvite(false);
         } catch {
             toast.error("Server error");
         } finally {

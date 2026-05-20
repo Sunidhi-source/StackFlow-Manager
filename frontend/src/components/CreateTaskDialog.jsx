@@ -1,11 +1,10 @@
+import api from "../utils/api";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
 import { addTask } from "../features/workspaceSlice";
- 
- const base_url = import.meta.env.VITE_BASE_URL;
 
 export default function CreateTaskDialog({ showCreateTask, setShowCreateTask, projectId }) {
     const dispatch = useDispatch();
@@ -33,14 +32,10 @@ export default function CreateTaskDialog({ showCreateTask, setShowCreateTask, pr
 
         setIsSubmitting(true);
         try {
-            const response = await fetch(`${base_url}/api/tasks`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
+            const response = await api.post('/api/tasks', {
                     ...formData,
                     projectId: projectId 
-                }),
-            });
+                });
 
             const data = await response.json();
 

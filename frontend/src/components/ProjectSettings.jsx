@@ -1,3 +1,4 @@
+import api from "../utils/api";
 import { format } from "date-fns";
 import { Plus, Save, Trash2, AlertOctagon } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -6,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import AddProjectMember from "./AddProjectMember";
 import { deleteProjectFromState } from "../features/workspaceSlice"; 
 import toast from "react-hot-toast";
-  const base_url = import.meta.env.VITE_BASE_URL;
 
 export default function ProjectSettings({ project }) {
     const dispatch = useDispatch();
@@ -44,11 +44,7 @@ export default function ProjectSettings({ project }) {
         e.preventDefault();
         setIsSubmitting(true);
         try {
-            const response = await fetch(`${base_url}/api/projects/${project._id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
-            });
+            const response = await api.put('/api/projects/${project._id}', formData);
 
             if (response.ok) {
                 toast.success("Project updated successfully!");
@@ -69,9 +65,7 @@ export default function ProjectSettings({ project }) {
         if (confirmName === project.name) {
             setIsDeleting(true);
             try {
-                const response = await fetch(`${base_url}/api/projects/${project._id}`, {
-                    method: "DELETE",
-                });
+                const response = await api.delete(`/api/projects/project._id`);
 
                 if (response.ok) {
                     dispatch(deleteProjectFromState(project._id)); 

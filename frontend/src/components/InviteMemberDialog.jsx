@@ -1,10 +1,9 @@
+import api from "../utils/api";
 import { useState } from "react";
 import { Mail, UserPlus } from "lucide-react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
  import 'react-toastify/dist/ReactToastify.css';
-
- const base_url = import.meta.env.VITE_BASE_URL;
 const InviteMemberDialog = ({ isDialogOpen, setIsDialogOpen }) => {
 
     const currentWorkspace = useSelector((state) => state.workspace?.currentWorkspace || null);
@@ -20,16 +19,12 @@ const InviteMemberDialog = ({ isDialogOpen, setIsDialogOpen }) => {
 
     setIsSubmitting(true);
     try {
-        const response = await fetch(`${base_url}/api/workspaces/invite`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
+        const response = await api.post('/api/workspaces/invite', {
                 email: formData.email,
                 role: formData.role,
                 workspaceId: currentWorkspace._id, 
                 workspaceName: currentWorkspace.name
-            })
-        });
+            });
 
         if (response.ok) {
             toast.success(`Invitation sent to ${formData.email}!`);

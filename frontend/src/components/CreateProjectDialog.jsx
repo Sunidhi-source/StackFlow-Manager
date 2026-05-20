@@ -1,10 +1,9 @@
+import api from "../utils/api";
 import { useState } from "react";
 import { XIcon } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux"; 
 import { addProject } from "../features/workspaceSlice"; 
 import toast from "react-hot-toast";
- 
- const base_url = import.meta.env.VITE_BASE_URL;
 
 const CreateProjectDialog = ({ isDialogOpen, setIsDialogOpen }) => {
     const dispatch = useDispatch(); 
@@ -33,14 +32,10 @@ const CreateProjectDialog = ({ isDialogOpen, setIsDialogOpen }) => {
 
         setIsSubmitting(true);
         try {
-            const response = await fetch(`${base_url}/api/projects`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ 
+            const response = await api.post('/api/projects', { 
                     ...formData, 
                     workspaceId: currentWorkspace._id 
-                }),
-            });
+                });
 
             const data = await response.json();
 

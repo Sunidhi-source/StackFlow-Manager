@@ -1,10 +1,10 @@
+import api from "../utils/api";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { CalendarIcon, MessageCircle, PenIcon } from "lucide-react";
-  const base_url = import.meta.env.VITE_BASE_URL;
 
 
 const TaskDetails = () => {
@@ -23,7 +23,7 @@ const TaskDetails = () => {
 
     const fetchComments = async () => {
         try {
-            const response = await fetch(`${base_url}/api/tasks/${taskId}/comments`);
+            const response = await api.get('/api/tasks/${taskId}/comments');
             if (response.ok) {
                 const data = await response.json();
                 setComments(data);
@@ -53,16 +53,12 @@ const TaskDetails = () => {
 
         try {
             toast.loading("Posting...");
-            const response = await fetch(`${base_url}/api/tasks/${taskId}/comments`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ 
+            const response = await api.post('/api/tasks/${taskId}/comments', { 
                     content: newComment, 
                     userId: user?._id,
                     userName: user?.name || "User",
                     userAvatar: user?.image || ""
-                }),
-            });
+                });
 
             if (response.ok) {
                 const savedComment = await response.json();

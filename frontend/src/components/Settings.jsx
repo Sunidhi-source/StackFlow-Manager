@@ -1,7 +1,7 @@
+import api from "../utils/api";
 import React, { useState } from 'react';
 import { User, Lock, Trash2, Save, ShieldAlert } from 'lucide-react';
 import toast from 'react-hot-toast';
-  const base_url = import.meta.env.VITE_BASE_URL;
 
 const Settings = () => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -16,15 +16,11 @@ const Settings = () => {
     const handleUpdateProfile = async (e) => {
         e.preventDefault(); // Prevents page reload
         try {
-            const res = await fetch(`${base_url}/api/users/update`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
+            const res = await api.put('/api/users/update', { 
                     userId: user.id || user._id, 
                     name: formData.name, 
                     email: formData.email 
-                })
-            });
+                });
             const data = await res.json();
             if (res.ok) {
                 localStorage.setItem("user", JSON.stringify(data));
@@ -43,14 +39,10 @@ const Settings = () => {
         if (!formData.newPassword) return toast.error("Enter a new password");
         
         try {
-            const res = await fetch(`${base_url}/api/auth/update-password`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
+            const res = await api.put('/api/auth/update-password', { 
                     userId: user.id || user._id, 
                     newPassword: formData.newPassword 
-                })
-            });
+                });
             const data = await res.json();
             if (res.ok) {
                 setFormData({...formData, newPassword: ''}); // Clear input
@@ -67,9 +59,7 @@ const Settings = () => {
     const handleDeleteAccount = async () => {
         if (window.confirm("WARNING: This will permanently delete your account and all data.")) {
             try {
-                const res = await fetch(`${base_url}/api/users/${user.id || user._id}`, { 
-                    method: 'DELETE' 
-                });
+                const res = await api.delete(`/api/users/user.id || user._id`);
                 if (res.ok) {
                     localStorage.removeItem("user");
                     window.location.href = "/auth";
