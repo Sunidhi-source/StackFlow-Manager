@@ -73,11 +73,9 @@ export const inviteMember = async (req, res, next) => {
         .status(400)
         .json({ message: "Email and workspaceId are required" });
 
-    // ── Option 3: fetch the inviting admin's name & email ──────────────────
     const inviter = await User.findById(req.user.id).select("name email");
     const inviterName = inviter?.name || "A teammate";
     const inviterEmail = inviter?.email || "";
-    // ───────────────────────────────────────────────────────────────────────
 
     const token = jwt.sign(
       { email, role: role || "MEMBER", workspaceId },
@@ -92,31 +90,28 @@ export const inviteMember = async (req, res, next) => {
     const capitalizedRole =
       displayRole.charAt(0).toUpperCase() + displayRole.slice(1);
 
-    await transporter.sendMail({
-      // ── Option 1: show "StackFlow" as sender name, not raw Gmail address ──
-      from: `"StackFlow" <${process.env.EMAIL_USER}>`,
-      // ──────────────────────────────────────────────────────────────────────
-      to: email,
-      subject: `${inviterName} invited you to join ${workspaceName || "a workspace"} on StackFlow`,
-      html: `
+    res.json({ message: "Invitation sent successfully" });
+
+    transporter
+      .sendMail({
+        from: `"StackFlow" <${process.env.EMAIL_USER}>`,
+        to: email,
+        subject: `${inviterName} invited you to join ${workspaceName || "a workspace"} on StackFlow`,
+        html: `
         <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:24px;border:1px solid #e4e4e7;border-radius:8px;">
           <h2 style="color:#18181b;">You're invited! 🎉</h2>
-
-          <!-- Option 3: personalized line showing who sent the invite -->
           <p style="color:#52525b;">
             <strong>${inviterName}</strong>
             ${inviterEmail ? `<span style="color:#a1a1aa;">(${inviterEmail})</span>` : ""}
             has invited you to join <strong>${workspaceName}</strong> on StackFlow as a <strong>${capitalizedRole}</strong>.
           </p>
-
           <a href="${inviteLink}" style="display:inline-block;margin-top:16px;padding:12px 24px;background:#2563eb;color:white;border-radius:6px;text-decoration:none;font-weight:600;">
             Accept Invitation
           </a>
           <p style="color:#a1a1aa;font-size:12px;margin-top:24px;">This link expires in 24 hours. If you weren't expecting this, you can safely ignore it.</p>
         </div>`,
-    });
-
-    res.json({ message: "Invitation sent successfully" });
+      })
+      .catch((err) => console.error("❌ Email send failed:", err.message));
   } catch (err) {
     next(err);
   }
