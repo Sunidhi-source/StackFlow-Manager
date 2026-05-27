@@ -73,12 +73,16 @@ export const inviteMember = async (req, res, next) => {
         .status(400)
         .json({ message: "Email and workspaceId are required" });
 
+    const normalizedRole = (role || "MEMBER")
+      .replace(/^org:/i, "")
+      .toUpperCase();
+
     const inviter = await User.findById(req.user.id).select("name email");
     const inviterName = inviter?.name || "A teammate";
     const inviterEmail = inviter?.email || "";
 
     const token = jwt.sign(
-      { email, role: role || "MEMBER", workspaceId },
+      { email, role: normalizedRole, workspaceId },
       process.env.JWT_SECRET,
       { expiresIn: "24h" },
     );
@@ -86,9 +90,9 @@ export const inviteMember = async (req, res, next) => {
     const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
     const inviteLink = `${clientUrl}/join-workspace?token=${token}`;
 
-    const displayRole = (role || "Member").replace("org:", "");
     const capitalizedRole =
-      displayRole.charAt(0).toUpperCase() + displayRole.slice(1);
+      normalizedRole.charAt(0).toUpperCase() +
+      normalizedRole.slice(1).toLowerCase(); // e.g. "Member" / "Admin"
 
     res.json({ message: "Invitation sent successfully" });
 

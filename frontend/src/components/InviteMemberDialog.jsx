@@ -11,7 +11,7 @@ const InviteMemberDialog = ({ isDialogOpen, setIsDialogOpen }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
-    role: "org:member",
+    role: "MEMBER", // ✅ Fixed: was "org:member" — must match Workspace model enum
   });
 
   const handleSubmit = async (e) => {
@@ -29,7 +29,7 @@ const InviteMemberDialog = ({ isDialogOpen, setIsDialogOpen }) => {
       });
 
       toast.success(`Invitation sent to ${formData.email}!`);
-      setFormData({ email: "", role: "org:member" });
+      setFormData({ email: "", role: "MEMBER" }); // ✅ Fixed: was "org:member"
       setIsDialogOpen(false);
     } catch (err) {
       toast.error(
@@ -98,8 +98,10 @@ const InviteMemberDialog = ({ isDialogOpen, setIsDialogOpen }) => {
               }
               className="w-full rounded border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-200 py-2 px-3 mt-1 focus:outline-none focus:border-blue-500 text-sm"
             >
-              <option value="org:member">Member</option>
-              <option value="org:admin">Admin</option>
+              <option value="MEMBER">Member</option>{" "}
+              {/* ✅ Fixed: was "org:member" */}
+              <option value="ADMIN">Admin</option>{" "}
+              {/* ✅ Fixed: was "org:admin" */}
             </select>
           </div>
 
